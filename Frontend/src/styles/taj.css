@@ -1,0 +1,1992 @@
+/* ============================================================
+   NAMO HOTEL — Taj-Inspired Design System
+   Clean, professional, serif-forward luxury aesthetic.
+   ============================================================ */
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   TAJ NAVBAR OVERRIDES
+   Clean, Taj-style: transparent over hero → white on scroll
+   ============================================================ */
+
+/* Transparent state — white text on dark hero */
+.nav--transparent .nav__link {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.nav--transparent .nav__link:hover {
+  color: var(--color-gold);
+  background: transparent;
+}
+
+.nav--transparent .nav__logo-img {
+  box-shadow: none;
+  background: transparent;
+  padding: 4px 8px;
+  /* Make the dark logo image pure white so it shows over the dark hero */
+  filter: brightness(0) invert(1);
+}
+
+/* Scrolled state — crisp white navbar */
+.nav--scrolled {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: none;
+}
+
+.nav--scrolled .nav__link {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.nav--scrolled .nav__link:hover {
+  color: var(--color-gold);
+  background: transparent;
+}
+
+/* Book Now CTA — Taj-style saffron filled rectangle */
+.nav__book-btn.btn.btn-gold.btn-sm {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+  border-radius: 2px !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.16em !important;
+  padding: 8px 18px !important;
+  box-shadow: none !important;
+}
+
+.nav--transparent .nav__book-btn.btn.btn-gold.btn-sm {
+  background: var(--color-primary) !important;
+}
+
+.nav__book-btn.btn.btn-gold.btn-sm:hover {
+  background: #c44710 !important;
+  border-color: #c44710 !important;
+  transform: none !important;
+}
+
+
+
+/* ============================================================
+   TAJ HERO — Full-bleed image carousel, no text
+   ============================================================ */
+.taj-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: #111;
+}
+
+.taj-hero__slides {
+  position: absolute;
+  inset: 0;
+}
+
+.taj-hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.taj-hero__slide--active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.taj-hero__slide--prev {
+  opacity: 0;
+  z-index: 0;
+}
+
+.taj-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  /* Ken Burns: subtle zoom */
+  animation: tajKenBurns 10s ease-out forwards;
+}
+
+.taj-hero__slide--active .taj-hero__img {
+  animation: tajKenBurns 10s ease-out forwards;
+}
+
+@keyframes tajKenBurns {
+  0%   { transform: scale(1.05); }
+  100% { transform: scale(1.0); }
+}
+
+/* Bottom gradient veil */
+.taj-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.10) 0%,
+    transparent 35%,
+    transparent 55%,
+    rgba(0,0,0,0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* Property label — bottom left (Taj style) */
+.taj-hero__label {
+  position: absolute;
+  bottom: 5.5rem;
+  left: 2.5rem;
+  z-index: 5;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.taj-hero__label-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.92;
+}
+
+.taj-hero__label-loc {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+}
+
+.taj-hero__label-loc i {
+  color: var(--color-gold);
+  font-size: 0.65rem;
+}
+
+/* Dot nav — bottom center */
+.taj-hero__dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.taj-hero__dot {
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s ease;
+  padding: 0;
+}
+
+.taj-hero__dot--active {
+  background: var(--color-gold);
+  width: 44px;
+}
+
+/* ============================================================
+   TAJ SITE — Global wrapper & section system
+   ============================================================ */
+.taj-site {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.taj-section {
+  padding: 5rem 0;
+}
+
+@media (max-width: 768px) {
+  .taj-section {
+    padding: 3.5rem 0;
+  }
+}
+
+/* ============================================================
+   TAJ TYPOGRAPHY HELPERS
+   ============================================================ */
+.taj-kicker {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.9rem;
+  display: block;
+}
+
+.taj-rule {
+  width: 56px;
+  height: 1px;
+  background: var(--color-gold);
+  margin: 1.2rem 0 1.6rem;
+  opacity: 0.7;
+}
+
+.taj-rule--center {
+  margin-inline: auto;
+}
+
+.taj-section-header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 3.5rem;
+}
+
+.taj-section-header p:last-child {
+  margin-top: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+/* ============================================================
+   PROPERTIES CAROUSEL (Taj second-section style)
+   ============================================================ */
+.prop-carousel {
+  background: var(--color-white);
+  padding: 5rem 0 4rem;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prop-carousel__header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem;
+}
+
+.prop-carousel__header h2 {
+  margin-bottom: 0.2rem;
+}
+
+.prop-carousel__rule {
+  width: 56px;
+  height: 1px;
+  background: var(--color-gold);
+  opacity: 0.7;
+  margin: 1.2rem auto 1.4rem;
+}
+
+.prop-carousel__kicker {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.prop-carousel__sub {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* Stage */
+.prop-carousel__stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Arrow buttons */
+.prop-carousel__arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 3;
+  position: relative;
+}
+
+.prop-carousel__arrow:hover {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  color: var(--color-white);
+}
+
+/* Track holds the three cards */
+.prop-carousel__track {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  flex: 1;
+  max-width: 1000px;
+  min-height: 480px;
+}
+
+/* Side preview cards */
+.prop-carousel__side-card {
+  flex: 0 0 180px;
+  max-width: 180px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+  align-self: center;
+  height: 340px;
+}
+
+.prop-carousel__side-card:hover {
+  opacity: 0.85;
+}
+
+.prop-carousel__side-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.prop-carousel__side-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 0.75rem 0.75rem;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+  color: #fff;
+}
+
+.prop-carousel__side-overlay span {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* Main card */
+.prop-carousel__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 32px rgba(43,35,32,0.10);
+  transition: opacity 0.42s ease, transform 0.42s ease;
+}
+
+.prop-carousel__main--next {
+  opacity: 0;
+  transform: translateX(18px);
+}
+
+.prop-carousel__main--prev {
+  opacity: 0;
+  transform: translateX(-18px);
+}
+
+.prop-carousel__main-img-wrap {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.prop-carousel__main-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.prop-carousel__main:hover .prop-carousel__main-img {
+  transform: scale(1.03);
+}
+
+.prop-carousel__main-info {
+  padding: 1.8rem 2rem 2rem;
+  text-align: center;
+}
+
+.prop-carousel__type {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+}
+
+.prop-carousel__main-info h3 {
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.3rem;
+  color: var(--color-text);
+}
+
+.prop-carousel__location {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.prop-carousel__location i {
+  color: var(--color-gold);
+  font-size: 0.7rem;
+}
+
+.prop-carousel__desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+.prop-carousel__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-gold);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.prop-carousel__link:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.prop-carousel__link i {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.prop-carousel__link:hover i {
+  transform: translateX(3px);
+}
+
+/* Dot nav */
+.prop-carousel__dots {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.prop-carousel__dot {
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-border);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s ease, width 0.25s ease;
+  padding: 0;
+}
+
+.prop-carousel__dot--active {
+  background: var(--color-gold);
+  width: 44px;
+}
+
+@media (max-width: 900px) {
+  .prop-carousel__side-card {
+    display: none;
+  }
+  .prop-carousel__track {
+    min-height: auto;
+  }
+  .prop-carousel__main-img-wrap {
+    height: 220px;
+  }
+}
+
+@media (max-width: 600px) {
+  .prop-carousel__main-info {
+    padding: 1.2rem 1rem 1.5rem;
+  }
+  .prop-carousel__main-img-wrap {
+    height: 200px;
+  }
+}
+
+/* ============================================================
+   TAJ SPLIT LAYOUT (About, Events, Contact)
+   ============================================================ */
+.taj-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.taj-split__copy h2 {
+  margin-bottom: 0.2rem;
+}
+
+.taj-split__copy p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  max-width: 480px;
+}
+
+.taj-split__media {
+  overflow: hidden;
+  border-radius: 4px;
+  margin: 0;
+  box-shadow: 0 8px 40px rgba(43,35,32,0.12);
+}
+
+.taj-split__media img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.taj-split__media:hover img {
+  transform: scale(1.03);
+}
+
+@media (max-width: 900px) {
+  .taj-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .taj-split__media img {
+    height: 280px;
+  }
+}
+
+/* ============================================================
+   ABOUT — Stats ribbon
+   ============================================================ */
+.taj-about {
+  background: var(--color-bg);
+}
+
+.taj-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.taj-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.taj-stat strong {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.taj-stat span {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* ============================================================
+   EXPERIENCES
+   ============================================================ */
+.taj-experiences {
+  background: var(--color-secondary);
+}
+
+.taj-exp-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.taj-exp-tabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.taj-exp-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.2rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  min-width: 80px;
+}
+
+.taj-exp-tab i {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  transition: color 0.2s ease;
+}
+
+.taj-exp-tab span {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.taj-exp-tab--active,
+.taj-exp-tab:hover {
+  border-color: var(--color-gold);
+  background: var(--color-white);
+}
+
+.taj-exp-tab--active i,
+.taj-exp-tab:hover i {
+  color: var(--color-gold);
+}
+
+.taj-exp-tab--active span,
+.taj-exp-tab:hover span {
+  color: var(--color-gold);
+}
+
+.taj-exp-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  background: var(--color-white);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(43,35,32,0.08);
+}
+
+.taj-exp-media {
+  margin: 0;
+  height: 360px;
+  overflow: hidden;
+}
+
+.taj-exp-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.taj-exp-content:hover .taj-exp-media img {
+  transform: scale(1.03);
+}
+
+.taj-exp-copy {
+  padding: 2rem 2.5rem 2rem 0;
+}
+
+.taj-exp-copy h3 {
+  margin-bottom: 0.2rem;
+}
+
+.taj-exp-copy p:last-child {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+@media (max-width: 768px) {
+  .taj-exp-content {
+    grid-template-columns: 1fr;
+  }
+  .taj-exp-media {
+    height: 240px;
+  }
+  .taj-exp-copy {
+    padding: 1.5rem;
+  }
+}
+
+/* ============================================================
+   DESTINATIONS GRID
+   ============================================================ */
+.taj-destinations {
+  background: var(--color-white);
+}
+
+.taj-dest-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.2rem;
+}
+
+@media (max-width: 1100px) {
+  .taj-dest-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .taj-dest-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 440px) {
+  .taj-dest-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.taj-dest-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.taj-dest-card:hover {
+  box-shadow: 0 6px 24px rgba(43,35,32,0.12);
+}
+
+.taj-dest-card__media {
+  margin: 0;
+  height: 200px;
+  overflow: hidden;
+}
+
+.taj-dest-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.taj-dest-card:hover .taj-dest-card__media img {
+  transform: scale(1.06);
+}
+
+.taj-dest-card__body {
+  padding: 1rem 1rem 1.2rem;
+}
+
+.taj-dest-card__body h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  color: var(--color-text);
+}
+
+.taj-dest-card__body p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.taj-gallery {
+  background: var(--color-bg);
+}
+
+.taj-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0.75rem;
+}
+
+.taj-gallery-grid > :nth-child(1),
+.taj-gallery-grid > :nth-child(5) {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .taj-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .taj-gallery-grid > :nth-child(1),
+  .taj-gallery-grid > :nth-child(5) {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 540px) {
+  .taj-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.taj-gallery-item {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background: none;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  display: block;
+  border-radius: 3px;
+}
+
+.taj-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.taj-gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.taj-gallery-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(43,35,32,0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.taj-gallery-item__overlay i {
+  color: #fff;
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.taj-gallery-item:hover .taj-gallery-item__overlay {
+  background: rgba(43,35,32,0.28);
+}
+
+.taj-gallery-item:hover .taj-gallery-item__overlay i {
+  opacity: 1;
+}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+.taj-events {
+  background: var(--color-secondary);
+}
+
+.taj-event-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.taj-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  padding: 0.35rem 0.8rem;
+  border-radius: 2px;
+  background: var(--color-white);
+}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.taj-contact {
+  background: var(--color-bg);
+}
+
+.taj-contact-pods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-top: 1.8rem;
+}
+
+.taj-contact-pod {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+a.taj-contact-pod:hover {
+  color: var(--color-primary);
+}
+
+.taj-contact-pod i {
+  color: var(--color-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.taj-contact-form {
+  background: var(--color-white);
+  border-radius: 4px;
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 2px 16px rgba(43,35,32,0.08);
+  border: 1px solid var(--color-border);
+}
+
+/* Compact saffron submit button inside enquiry form */
+.js-contact-form .btn.btn-gold.btn-lg,
+.js-hotel-form .btn.btn-gold.btn-lg {
+  background: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+  color: #fff !important;
+  border-radius: 3px !important;
+  padding: 10px 24px !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.18em !important;
+  box-shadow: none !important;
+  margin-top: 0.5rem;
+}
+
+.js-contact-form .btn.btn-gold.btn-lg:hover,
+.js-hotel-form .btn.btn-gold.btn-lg:hover {
+  background: #c44710 !important;
+  border-color: #c44710 !important;
+  transform: none !important;
+  box-shadow: 0 2px 10px rgba(230, 85, 18, 0.3) !important;
+}
+
+/* ============================================================
+   TAJ BUTTONS
+   ============================================================ */
+.taj-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 2rem;
+  border-radius: 2px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.taj-btn--gold {
+  background: var(--color-gold);
+  color: var(--color-white);
+}
+
+.taj-btn--gold:hover {
+  background: #a8851c;
+  box-shadow: 0 4px 16px rgba(201,162,39,0.3);
+}
+
+.taj-btn--outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+}
+
+.taj-btn--outline:hover {
+  background: var(--color-text);
+  color: var(--color-white);
+}
+
+/* ============================================================
+   FADE REVEAL — Scroll-triggered
+   ============================================================ */
+.fade-reveal {
+  opacity: 1; /* Fallback: ensure visibility */
+  animation: fadeRevealAnim 1s ease forwards;
+}
+
+@keyframes fadeRevealAnim {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-reveal--delay-1 { transition-delay: 0.12s; }
+.fade-reveal--delay-2 { transition-delay: 0.24s; }
+
+/* ============================================================
+   DISABLE OLD 3D IMMERSIVE SYSTEM — prevents bleed-in
+   ============================================================ */
+.apple-atmosphere-canvas {
+  display: none !important;
+}
+
+.tilt-3d {
+  transform: none !important;
+  transform-style: flat !important;
+}
+
+.immersive-site {
+  perspective: none !important;
+  transform-style: flat !important;
+}
+/* ============================================================
+   HOTEL GLOBE SECTION
+   ============================================================ */
+
+.globe-section {
+  background: #13111a;
+  padding: 5rem 0 5.5rem;
+}
+
+.globe-section .taj-section-header p:last-child {
+  color: rgba(255,255,255,0.5);
+}
+
+.globe-section .taj-section-header h2 {
+  color: #fff;
+}
+
+.globe-section .taj-kicker {
+  color: var(--color-primary);
+}
+
+.globe-section .taj-rule {
+  background: var(--color-primary);
+}
+
+/* Stage: centered globe */
+.globe-stage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+/* Three.js mount div — renderer appends <canvas> here */
+.globe-mount {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 520px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #080a12;
+}
+
+.globe-mount canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Floating 2D Pin Hover Tooltip directly over 3D Pins */
+.globe-pin-tooltip {
+  position: absolute;
+  transform: translate(-50%, -130%);
+  background: rgba(14, 11, 20, 0.94);
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 6px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+  z-index: 20;
+  animation: pinTooltipPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.globe-pin-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid rgba(212, 175, 55, 0.6);
+}
+
+@keyframes pinTooltipPop {
+  from { opacity: 0; transform: translate(-50%, -120%) scale(0.9); }
+  to   { opacity: 1; transform: translate(-50%, -130%) scale(1); }
+}
+
+.globe-pin-tooltip__icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(230, 85, 18, 0.2);
+  border: 1px solid rgba(230, 85, 18, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.globe-pin-tooltip__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.globe-pin-tooltip__name {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.03em;
+}
+
+.globe-pin-tooltip__city {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Taj Royal Globe Card & Hint */
+.taj-globe-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, rgba(20, 16, 28, 0.96), rgba(10, 8, 15, 0.98));
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.15);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  backdrop-filter: blur(12px);
+  animation: tajCardIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tajCardIn {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.taj-globe-card__media {
+  position: relative;
+  width: 140px;
+  height: 95px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.taj-globe-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.taj-globe-card__badge {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  background: rgba(10, 8, 15, 0.88);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  backdrop-filter: blur(4px);
+}
+
+.taj-globe-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.taj-globe-card__kicker {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.taj-globe-card__kicker i {
+  font-size: 0.65rem;
+  margin-right: 3px;
+}
+
+.taj-globe-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+.taj-globe-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.taj-globe-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: 0.4rem;
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.taj-globe-card__btn:hover {
+  background: var(--color-primary);
+  color: #0b0910;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+.taj-globe-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: rgba(14, 11, 20, 0.6);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 6px;
+  padding: 0.7rem 1.2rem;
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.taj-globe-hint i {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   HOTEL DETAIL PAGE (TAJ INSPIRED DESIGN SYSTEM)
+   ========================================================================== */
+
+/* Hero Banner */
+.taj-detail-hero {
+  position: relative;
+  height: 85vh;
+  min-height: 540px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 5rem;
+  background-color: #0f0c0a;
+}
+
+.taj-detail-hero__img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.taj-detail-hero__overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(to top, rgba(15,12,10,0.95) 0%, rgba(15,12,10,0.45) 55%, rgba(15,12,10,0.2) 100%);
+  z-index: 2;
+}
+
+.taj-detail-hero__content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.taj-breadcrumb {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.taj-breadcrumb__item {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.taj-breadcrumb__item:hover {
+  color: var(--color-gold);
+}
+
+.taj-breadcrumb__item--current {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.taj-breadcrumb__sep {
+  color: rgba(201, 162, 39, 0.5);
+  font-size: 0.6rem;
+}
+
+.taj-detail-hero__titles {
+  max-width: 850px;
+}
+
+.taj-detail-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 1.12;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.taj-detail-hero__location {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.85);
+  margin-top: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+}
+
+.taj-detail-hero__location i {
+  color: var(--color-gold);
+}
+
+/* Dark Luxury Section Overrides */
+.taj-section--dark {
+  background-color: #14100e;
+  color: rgba(240, 235, 228, 0.9);
+}
+
+.taj-section--dark .taj-kicker {
+  color: var(--color-gold);
+}
+
+.taj-section--dark h2 {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  color: #faf6f0;
+}
+
+/* Split Layout */
+.taj-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .taj-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* About Section Text */
+.taj-about-text {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+.taj-about-text p {
+  margin-bottom: 1.2rem;
+}
+
+.taj-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+.taj-highlight {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.taj-highlight i {
+  color: var(--color-gold);
+}
+
+/* Image Frames & Quick Info */
+.taj-img-frame {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(43,35,32,0.12);
+  margin-bottom: 2rem;
+  border: 1px solid rgba(201, 162, 39, 0.3) !important;
+}
+
+.taj-img-frame img {
+  width: 100%;
+  display: block;
+  transition: transform 0.8s ease;
+}
+
+.taj-img-frame:hover img {
+  transform: scale(1.04);
+}
+
+.taj-quick-info {
+  background: var(--color-white);
+  border: 1px solid rgba(201, 162, 39, 0.3);
+  box-shadow: 0 4px 20px rgba(43, 35, 32, 0.06);
+  padding: 2rem;
+  border-radius: 4px;
+}
+
+.taj-quick-info h4 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.taj-quick-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.taj-quick-list li {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.taj-quick-list li strong {
+  color: var(--color-text);
+}
+
+.taj-quick-list li:last-child {
+  border-bottom: none;
+}
+
+.taj-quick-list i {
+  color: var(--color-gold);
+  margin-top: 0.2rem;
+}
+
+/* Grids & Cards */
+.taj-grid--3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .taj-grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .taj-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.taj-premium-card {
+  background: var(--color-white);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 20px rgba(43, 35, 32, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.taj-premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(43, 35, 32, 0.12);
+  border-color: rgba(201, 162, 39, 0.4);
+}
+
+.taj-premium-card .taj-card__img {
+  height: 240px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.taj-premium-card .taj-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.taj-premium-card:hover .taj-card__img img {
+  transform: scale(1.06);
+}
+
+.taj-premium-card__inner {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.taj-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.taj-card__desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.taj-card__amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.taj-room-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: rgba(201, 162, 39, 0.12);
+  color: #9a7718;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* Amenities Grid */
+.taj-amenities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.taj-amenity-item {
+  text-align: center;
+  padding: 2.2rem 1.6rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(43,35,32,0.03);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.taj-amenity-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.taj-amenity-item i {
+  font-size: 2.2rem;
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.taj-amenity-item h4 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.taj-amenity-item p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* Gallery Grid */
+.taj-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  grid-auto-rows: 250px;
+}
+
+.taj-gallery-item {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(201, 162, 39, 0.15);
+}
+
+.taj-gallery-item--large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 768px) {
+  .taj-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 200px;
+  }
+  .taj-gallery-item--large {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+@media (max-width: 480px) {
+  .taj-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  .taj-gallery-item--large {
+    grid-column: span 1;
+  }
+}
+
+.taj-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.taj-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 12, 10, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.taj-gallery-overlay i {
+  color: var(--color-gold);
+  font-size: 2.2rem;
+  transform: scale(0.6);
+  transition: transform 0.3s ease;
+}
+
+.taj-gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.taj-gallery-item:hover .taj-gallery-overlay {
+  opacity: 1;
+}
+
+.taj-gallery-item:hover .taj-gallery-overlay i {
+  transform: scale(1);
+}
+
+/* Contact Section */
+.taj-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.taj-contact-link i {
+  color: var(--color-gold);
+}
+
+.taj-contact-link:hover {
+  color: var(--color-gold);
+}
+
+.taj-map-container {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 15px rgba(43,35,32,0.06);
+}
+
+.taj-map-container iframe {
+  width: 100%;
+  height: 350px;
+  border: none;
+  display: block;
+}
+
+.taj-contact-card {
+  background: var(--color-white);
+  padding: 3rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 40px rgba(43, 35, 32, 0.08);
+}
+
+.taj-contact-card h3 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* Modify existing ContactForm to fit the new aesthetic */
+.taj-contact-card .contact-form {
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.taj-contact-card .form-group input,
+.taj-contact-card .form-group textarea,
+.taj-contact-card .form-group select {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+.taj-contact-card .form-group input:focus,
+.taj-contact-card .form-group textarea:focus,
+.taj-contact-card .form-group select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(230,85,18,0.1);
+}
+
+.taj-contact-card .form-group label {
+  color: #555;
+}
+
+.taj-contact-card .btn-gold {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  width: 100%;
+  text-align: center;
+}
+
+.taj-contact-card .btn-gold:hover {
+  background: #c44710;
+}
+
+/* ==========================================================================
+   HOTEL DETAIL PAGE PREMIUM ENHANCEMENTS
+   ========================================================================== */
+.taj-section--dark {
+  background-color: #0f0c14;
+  color: #fff;
+}
+
+.taj-section--dark h2,
+.taj-section--dark h3,
+.taj-section--dark h4 {
+  color: #fff;
+}
+
+.taj-section--dark .taj-kicker {
+  color: var(--color-primary);
+}
+
+.taj-section--dark .taj-about-text {
+  color: rgba(255,255,255,0.75);
+}
+
+.taj-section--dark .taj-highlight {
+  color: rgba(255,255,255,0.9);
+}
+
+.taj-section--dark .taj-quick-info {
+  background-color: #1a1622;
+  border-color: rgba(230,85,18,0.3);
+}
+
+.taj-section--dark .taj-quick-list li {
+  color: rgba(255,255,255,0.8);
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+
+/* Premium Rooms Section */
+.taj-premium-rooms {
+  background: linear-gradient(to bottom, #0f0c14 0%, #1a1622 100%);
+  color: #fff;
+}
+.taj-premium-rooms h2 {
+  color: #fff;
+}
+.taj-premium-rooms p {
+  color: rgba(255,255,255,0.7);
+}
+
+.taj-premium-card {
+  background: #fff;
+  border-radius: 0;
+  border: 1px solid rgba(230,85,18,0.2);
+  padding: 1rem;
+}
+.taj-premium-card__inner {
+  background: #fdfaf7;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
