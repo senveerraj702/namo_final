@@ -343,8 +343,9 @@ export const HotelGlobe: React.FC = () => {
       renderer.domElement.style.cursor = 'grab';
       if (dragDelta < 6) {
         // Click: navigate if hovering a pin
-        if (currentHoverId && hoveredPin) {
-          navigate(`/hotels/${hoveredPin.slug}`);
+        if (currentHoverId) {
+          const clickedPin = HOTEL_PINS.find((h) => h.id === currentHoverId);
+          if (clickedPin) navigate(`/hotels/${clickedPin.slug}`);
         }
       }
       dragDelta = 0;
@@ -414,8 +415,9 @@ export const HotelGlobe: React.FC = () => {
       if (touchDragDelta < 8 && e.changedTouches.length === 1) {
         const t = e.changedTouches[0];
         checkHover(t.clientX, t.clientY);
-        if (currentHoverId && hoveredPin) {
-          navigate(`/hotels/${hoveredPin.slug}`);
+        if (currentHoverId) {
+          const clickedPin = HOTEL_PINS.find((h) => h.id === currentHoverId);
+          if (clickedPin) navigate(`/hotels/${clickedPin.slug}`);
         }
       }
       touchDragDelta = 0;
@@ -569,7 +571,7 @@ export const HotelGlobe: React.FC = () => {
               <p className="taj-globe-card__desc">{hoveredPin.desc}</p>
               <button
                 className="taj-globe-card__btn"
-                onClick={() => navigate(`/hotels/${hoveredPin.slug}`)}
+                onClick={() => hoveredPin && navigate(`/hotels/${hoveredPin.slug}`)}
               >
                 <span>Explore Property</span>
                 <i className="fa-solid fa-arrow-right" />
